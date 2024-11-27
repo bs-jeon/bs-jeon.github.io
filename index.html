@@ -1,7 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+    <style>
+        .folder {
+            margin: 20px;
+        }
+        .folder img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <h1>Image Viewer</h1>
+    <div id="folders"></div>
+
+    <script>
+        const folders = {
+            "gltfs": [
+                { src: "https://github.com/KhronosGroup/glTF-Sample-Models/blob/main/2.0/2CylinderEngine/screenshot/screenshot.png", link: "cylinder.html" },
+                { src: "https://example.com/image2.jpg", link: "page2.html" }
+            ],
+        };
+
+        const foldersDiv = document.getElementById('folders');
+
+        for (const [folder, files] of Object.entries(folders)) {
+            const folderDiv = document.createElement('div');
+            folderDiv.classList.add('folder');
+
+            files.forEach(file => {
+                const img = document.createElement('img');
+                img.src = file.src;
+                img.addEventListener('click', () => {
+                    window.location.href = `${folder}/${file.link}`;
+                });
+                folderDiv.appendChild(img);
+            });
+
+            foldersDiv.appendChild(folderDiv);
+        }
+    </script>
 </body>
 </html>
