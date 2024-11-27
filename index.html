@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Viewer</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
     <style>
         .folder {
             margin: 20px;
@@ -22,6 +24,17 @@
     <div id="folders"></div>
 
     <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    }, err => {
+                        console.log('Service Worker registration failed:', err);
+                    });
+            });
+        }
+
         const folders = {
             "gltfs": [
                 { src: "https://github.com/KhronosGroup/glTF-Sample-Models/raw/main/2.0/2CylinderEngine/screenshot/screenshot.png", link: "1.html" },
